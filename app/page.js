@@ -2,9 +2,10 @@ import Image from "next/image";
 
 export default function Home() {
   const menuClick = (idx)=>{
-
+ 
   };
 
+  
   return (
     <div className="container">
       <h3>Halo selamat datang</h3>
