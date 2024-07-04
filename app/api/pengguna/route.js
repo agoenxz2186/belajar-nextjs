@@ -11,14 +11,22 @@ export async function GET(request){
 
 export async function POST(request){
     const body = await request.json();
-    let [data] = await db.query("INSERT INTO pengguna SET ?", {
-        "nama": body.nama,
-        "tgllahir": body.tgllahir,
-        "gender": body.gender,
-        "alamat": body.alamat,
-        "created_at": new Date(),
-        "updated_at": ""
-    });
+
+    try{
+        let [data] = await db.query("INSERT INTO pengguna SET ?", {
+            "nama": body.nama,
+            "tgllahir": body.tgllahir,
+            "gender": body.gender,
+            "alamat": body.alamat,
+            "created_at": new Date()
+        });
+    }catch(error){
+        return new Response(JSON.stringify({
+            "error": error
+        }), {
+            status:400
+        });
+    }
     
     return new Response(JSON.stringify({
         "data":data

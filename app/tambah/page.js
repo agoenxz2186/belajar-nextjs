@@ -2,11 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
  
 export default function TambahPage(){
-
-    const [name, setName] = useState('');
+ 
+    const {register, handleSubmit, formState:{errors}} = useForm();
+ 
     const [loading, setLoading] = useState(false);
     const [tglLahir, setTanggalLahir] = useState('');
     const [sex, setSex] = useState('');
@@ -14,8 +16,8 @@ export default function TambahPage(){
 
     const route = useRouter();
 
-    const handleSubmit = (e)=>{
-        e.preventDefault();
+    const onSubmit = (e)=>{
+       
         setLoading(true);
         fetch("/api/pengguna", {
             method: "POST",
@@ -23,7 +25,7 @@ export default function TambahPage(){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nama: name,
+                nama: e.name,
                 tgllahir: tglLahir,
                 gender: sex,
                 alamat: alamat
@@ -61,13 +63,15 @@ export default function TambahPage(){
     return (
         <div>
             <h1>Form Tambah Pengguna</h1> 
-            <form onSubmit={handleSubmit} className="max-w-lg">
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg">
+          
                <div className="mb-4 ml-4 mr-4 mt-4">
                 <label className="block text-grey-700 text-sm font-bold mb-2" htmlFor="name">Nama Lengkap</label>
-                    <input type="text" id="name" value={name} 
-                        onChange={(e)=>setName(e.target.value)}
+                    <input type="text" id="name"
+                        {...register('name', { required: 'Nama diperlukan' })}
                         className="shadow bg-white appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
                         />
+                    {errors.name && <span className="text-red-500">{errors.name.message}</span>}
                 </div>
                 <div className="mt-4 ml-4 mb-4 mr-4">
                     <label className="block text-grey-700 text-sm font-bold mb-2" htmlFor="tglLahir">Tanggal Lahir</label>

@@ -1,0 +1,14 @@
+### test simpan
+
+GET http://localhost:8080/api/pengguna
+
+### test post
+POST http://localhost:8080/api/pengguna
+Content-Type: application/json
+
+{
+    "nama": "Arif",
+    "tgllahir": "2000-01-2",
+    "gender": "L",
+    "alamat": "Jl. abcd"
+}
