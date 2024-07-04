@@ -10,8 +10,25 @@
     pkgs.nodePackages.pnpm
     pkgs.bun
   ];
+
+  services = {
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+       
+    };
+  };
+
+
+
   # Sets environment variables in the workspace
-  env = {};
+  
+  env = {
+    MYSQL_USER = "root";
+    MYSQL_PASSWORD = "";
+  };
+
+ 
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [

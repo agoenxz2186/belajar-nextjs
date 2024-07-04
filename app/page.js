@@ -1,10 +1,15 @@
+"use client"
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const menuClick = (idx)=>{
- 
-  };
+  const [menu, setMenu] = useState()
 
+  const menuClick = (idx)=>{
+    setMenu(idx);
+  };
+ 
   
   return (
     <div className="container">
@@ -13,10 +18,11 @@ export default function Home() {
         Ini adalah aplikasi yang dibuat menggunakan JS
       </p>
       <ul>
-        <li onClick={menuClick(0)}>Menu 1</li>
-        <li onClick={menuClick(1)}>Menu 2</li>
-        <li onClick={menuClick(2)}>Menu 3</li>
+        <li><a href="javascript:void(0);"  onClick={()=>menuClick(0)}>Menu 1</a></li>
+        <li><a href="javascript:void(0);"   onClick={()=>menuClick(1)}>Menu 2</a></li>
+        <li><a href="javascript:void(0);"  onClick={()=>menuClick(2)}>Menu 3</a></li>
       </ul>
+      <center>Menu yang di click {menu}</center>
     </div>
   );
 }
